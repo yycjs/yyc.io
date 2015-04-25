@@ -1,0 +1,27 @@
+{
+  "name": "yyc.io",
+  "version": "0.1.0",
+  "private": true,
+  "description": "The YYC open data API",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "grunt test",
+    "start": "node lib/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:yyc/yyc.io.git"
+  },
+  "author": "YYC",
+  "license": "Proprietary",
+  "bugs": {
+    "url": "https://github.com/yyc/yyc.io/issues"
+  },
+  "dependencies": {
+    "babel": "^5.1.11",
+    "compression": "^1.4.3",
+    "feathers": "^1.1.0-pre.0",
+    "feathers-hooks": "^0.5.0"
+  },
+  "devDependencies": {}
+}
