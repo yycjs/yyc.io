@@ -28,6 +28,7 @@
     "feathers-mongodb": "^0.3.0",
     "feed-read": "0.0.1",
     "lodash": "^3.7.0",
+    "node-schedule": "^0.2.6",
     "q": "^1.2.0",
     "request": "^2.55.0",
     "winston": "^1.0.0"
