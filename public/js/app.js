@@ -2,45 +2,120 @@
 // Documentation can be found at: http://foundation.zurb.com/docs
 $(document).foundation();
 
-function initialize() {
-  var mapOptions = {
-    zoom: 12,
-    center: new google.maps.LatLng(51.0486, -114.0708)
-  };
+// Hardcode types just for now
+var types = [
+  'ELECTRIC PLUG IN',
+  'HB1 - HIDE A BAG SINGLE, BEAR BIN'
+];
 
-  var map = new google.maps.Map(document.getElementById('map-canvas'),
-      mapOptions);
+var points = [];
 
-  // map.data.loadGeoJson('/google.json');
+var map;  // assigned after initialize
 
-  // var kmlUrl = "https://data.calgary.ca/_layouts/OpenData/DownloadDataset.ashx?DatasetId=PDC0-99999-99999-00204-P(CITYonlineDefault)&VariantId=2(CITYonlineDefault)";
+function toggleData(type) {
 
-  // var kmlOptions = {
-  //   // suppressInfoWindows: true,
-  //   preserveViewport: true,
-  //   map: map
-  // };
+  for (index in points) {
+    var point = points[index];
 
-  // var kmlLayer =  new google.maps.KmlLayer(kmlUrl, kmlOptions);
-  // kmlLayer.setMap(map);
-
-  var schoolsLayer = new google.maps.KmlLayer({
-      url: 'https://data.calgary.ca/_layouts/OpenData/DownloadDataset.ashx?DatasetId=PDC0-99999-99999-00204-P(CITYonlineDefault)&VariantId=2(CITYonlineDefault)',
-      map: map,
-      preserveViewport: true
-  });
-  schoolsLayer.setMap(map)
-
-  
+    if (point.properties.ASSET_TYPE === type) {
+      point.marker.setMap(point.marker.getMap() ? null : map);
+    }
+  }
 }
 
-// initialize();
+function setAllMap(map) {
+  for (var i = 0; i < points.length; i++) {
+    points[i].marker.setMap(map);
+  }
+}
 
-// function loadScript() {
-//   var script = document.createElement('script');
-//   script.type = 'text/javascript';
-//   script.src = '//maps.googleapis.com/maps/api/js?v=3.exp&callback=initialize&';
-//   document.body.appendChild(script);
-// }
+function clearAllMap() {
+  setAllMap(null);
+  points = [];
+}
 
-window.onload = initialize;
+function drawFeatures (url, map) {
+
+  clearAllMap();
+
+  $.ajax(url).done(function(data) {
+    for (var index in data.features)
+      createMarker(map, data.features[index]);
+  });
+}
+
+function createMarker (map, feature) {
+
+  var lng = feature.geometry.coordinates[0];
+  var lat = feature.geometry.coordinates[1];
+  var myLatlng = new google.maps.LatLng(lat, lng);
+
+  console.log(feature.properties);
+
+  var marker = new google.maps.Marker({
+    position: myLatlng,
+    title: feature.properties.ASSET_TYPE,
+    // dataSet: feature.properties.
+    icon: '//labs.google.com/ridefinder/images/mm_20_purple.png',
+    map: map,
+    idPropertyName: feature.properties.ASSET_CD
+  });
+
+  points[points.length] = {
+    marker: marker,
+    properties: feature.properties
+  };
+
+  google.maps.event.addListener(marker, 'click', function(event) {
+    var content = marker.title;
+    // var content = marker.dataSet + "<br>" + marker.title
+    infowindow.setContent(content);
+    infowindow.setPosition(event.latLng);
+    infowindow.setOptions({pixelOffset: new google.maps.Size(0,-34)});
+    infowindow.open(map);
+  });
+}
+
+function drawMap (userLat, userLong) {
+
+  var mapOptions = {
+    zoom: 12,
+    center: new google.maps.LatLng(userLat, userLong),
+    mapTypeId: google.maps.MapTypeId.TERRAIN
+  };
+
+  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+  /* ADD MAP MARKER FOR USER */
+  var marker = new google.maps.Marker({
+    position: new google.maps.LatLng(userLat, userLong),
+    title: 'You Are Here',
+    map: map,
+    idPropertyName: 'userLoc'
+  });
+
+  drawFeatures('/features.json', map);
+};
+
+function initialize() {
+
+  var infowindow = new google.maps.InfoWindow();
+
+  if ("geolocation" in navigator) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      drawMap(position.coords.latitude, position.coords.longitude);
+    });
+  } else {
+    drawMap(51.0486, -114.0708); // centre of Calgary
+  }
+}
+
+function loadScript() {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp' +
+      '&signed_in=true&callback=initialize&';
+  document.body.appendChild(script);
+}
+
+window.onload = loadScript;
