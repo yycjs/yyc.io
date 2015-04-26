@@ -4,20 +4,22 @@ $(document).foundation();
 
 // Hardcode types just for now
 var types = [
-  'ELECTRIC PLUG IN',
-  'HB1 - HIDE A BAG SINGLE, BEAR BIN'
-];
+    'ELECTRIC PLUG IN',
+    'HB1 - HIDE A BAG SINGLE, BEAR BIN'
+  ]
 
-var icons = [
-  '//maps.google.com/mapfiles/marker_yellow.png',
-  '//maps.google.com/mapfiles/marker_orange.png',
-  '//maps.google.com/mapfiles/marker_green.png',
-  '//maps.google.com/mapfiles/marker_purple.png'
-];
+  , icons = [
+    '//maps.google.com/mapfiles/marker_yellow.png',
+    '//maps.google.com/mapfiles/marker_green.png',
+    '//maps.google.com/mapfiles/marker_orange.png',
+    '//maps.google.com/mapfiles/marker_purple.png'
+  ]
 
-var points = [];
+  , points = []
 
-var map;  // assigned after initialize
+  // infowindow and map assigned after initialize
+  , infowindow
+  , map;
 
 function toggleData(type) {
 
@@ -41,22 +43,25 @@ function clearAllMap() {
   points = [];
 }
 
-function drawFeatures (url, map) {
+function drawFeatures (url) {
 
   clearAllMap();
 
   $.ajax(url).done(function(data) {
+
+    var parent = document.getElementById('options-list');
+    $(parent).html('');
+
     for (var index in data.features) {
       var feature = data.features[index];
       createMarker(map, feature);
-
-      var parent = document.getElementById('options-list');
       $(parent).html(
         $(parent).html()
-        + '<li><input id="' 
+        + '<li><label><input id="' 
         + feature.properties.ASSET_TYPE 
         + '" type="checkbox" checked>'
         + feature.properties.ASSET_TYPE
+        + '</label>'
       );
     }
   });
@@ -67,13 +72,17 @@ $('#options-list').on('change', 'input[type=checkbox]', function(event){
   toggleData(marker);
 });
 
+$('#api-request').submit(function() {
+  console.log("Submitted");
+  drawFeatures('/features.json');
+  return false;
+});
+
 function createMarker (map, feature) {
 
   var lng = feature.geometry.coordinates[0];
   var lat = feature.geometry.coordinates[1];
   var myLatlng = new google.maps.LatLng(lat, lng);
-
-  console.log(feature.properties);
 
   var marker = new google.maps.Marker({
     position: myLatlng,
@@ -116,13 +125,11 @@ function drawMap (userLat, userLong) {
     map: map,
     idPropertyName: 'userLoc'
   });
-
-  drawFeatures('/features.json', map);
 };
 
 function initialize() {
 
-  var infowindow = new google.maps.InfoWindow();
+  infowindow = new google.maps.InfoWindow();
 
   if ("geolocation" in navigator) {
     navigator.geolocation.getCurrentPosition(function(position) {

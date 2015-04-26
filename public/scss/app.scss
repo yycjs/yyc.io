@@ -91,3 +91,15 @@
     text-align: center;
   }
 }
+
+.tabs-content {
+  > .content {
+    display: block;
+    position: absolute;
+    left: -9999px;
+    &.active {
+      position: relative;
+      left: 0;
+    }
+  }
+}
