@@ -1,12 +1,18 @@
 // Foundation JavaScript
 // Documentation can be found at: http://foundation.zurb.com/docs
-  $(document).foundation({
-  });
+$(document).foundation();
 
 // Hardcode types just for now
 var types = [
   'ELECTRIC PLUG IN',
   'HB1 - HIDE A BAG SINGLE, BEAR BIN'
+];
+
+var icons = [
+  '//maps.google.com/mapfiles/marker_yellow.png',
+  '//maps.google.com/mapfiles/marker_orange.png',
+  '//maps.google.com/mapfiles/marker_green.png',
+  '//maps.google.com/mapfiles/marker_purple.png'
 ];
 
 var points = [];
@@ -53,13 +59,13 @@ function drawFeatures (url, map) {
         + feature.properties.ASSET_TYPE
       );
     }
-   $('#options-list input[type=checkbox]').change(function(event){
-    var marker = $(this).attr('id');
-    console.log('checkbox changedjkldfjafls; !!!')
-    toggleData(marker);
-    });
   });
 }
+
+$('#options-list').on('change', 'input[type=checkbox]', function(event){
+  var marker = $(this).attr('id');
+  toggleData(marker);
+});
 
 function createMarker (map, feature) {
 
@@ -73,7 +79,7 @@ function createMarker (map, feature) {
     position: myLatlng,
     title: feature.properties.ASSET_TYPE,
     // dataSet: feature.properties.
-    icon: '//labs.google.com/ridefinder/images/mm_20_purple.png',
+    icon: icons[points.length%icons.length],
     map: map,
     idPropertyName: feature.properties.ASSET_CD
   });
