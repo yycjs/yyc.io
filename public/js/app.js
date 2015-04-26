@@ -132,7 +132,7 @@ function drawMap (userLat, userLong) {
   controlUI.classList.add('options-list');
   controlDiv.appendChild(controlUI);
 
-  map.controls[google.maps.ControlPosition.LEFT_TOP].push(controlDiv);
+  map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(controlDiv);
 };
 
 function initialize() {
