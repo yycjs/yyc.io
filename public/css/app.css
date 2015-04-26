@@ -9158,27 +9158,37 @@ th.hide-for-touch {
   }
 }
 /* line 42, ../scss/app.scss */
+html {
+  box-sizing: border-box;
+}
+
+/* line 45, ../scss/app.scss */
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+/* line 49, ../scss/app.scss */
 .map-canvas {
   width: 100%;
   height: 20rem;
   max-height: 90vh;
 }
-/* line 46, ../scss/app.scss */
+/* line 53, ../scss/app.scss */
 .map-canvas .gm-style img {
   max-width: none;
 }
-/* line 47, ../scss/app.scss */
+/* line 54, ../scss/app.scss */
 .map-canvas .gm-style label {
   width: auto;
   display: inline;
 }
 
-/* line 50, ../scss/app.scss */
+/* line 57, ../scss/app.scss */
 .search-bar {
   max-width: 100%;
 }
 
-/* line 54, ../scss/app.scss */
+/* line 61, ../scss/app.scss */
 .response-box {
   border: 1px solid #555;
   border-radius: 5px;
@@ -9190,7 +9200,7 @@ th.hide-for-touch {
   padding: 10px;
 }
 
-/* line 64, ../scss/app.scss */
+/* line 71, ../scss/app.scss */
 .options-box {
   float: right;
   background: #000;
@@ -9199,11 +9209,11 @@ th.hide-for-touch {
   font-size: 1.5em;
   right: 0px;
 }
-/* line 65, ../scss/app.scss */
+/* line 72, ../scss/app.scss */
 .options-box h3 {
   color: #fff;
 }
-/* line 72, ../scss/app.scss */
+/* line 79, ../scss/app.scss */
 .options-box .options-selection {
   display: none;
   z-index: 999;
@@ -9211,26 +9221,26 @@ th.hide-for-touch {
   background-color: #000;
   width: 300px;
 }
-/* line 79, ../scss/app.scss */
+/* line 86, ../scss/app.scss */
 .options-box .options-toggle {
   background-color: orange;
   width: 300px;
   text-align: center;
 }
 
-/* line 88, ../scss/app.scss */
+/* line 95, ../scss/app.scss */
 .tabs-content > .content {
   display: block;
   position: absolute;
   left: -9999px;
 }
-/* line 92, ../scss/app.scss */
+/* line 99, ../scss/app.scss */
 .tabs-content > .content.active {
   position: relative;
   left: 0;
 }
 
-/* line 99, ../scss/app.scss */
+/* line 106, ../scss/app.scss */
 .options-list {
   display: block;
   margin: 0.25rem;
@@ -9239,13 +9249,13 @@ th.hide-for-touch {
   background: rgba(255, 255, 255, 0.8);
   border: 1px solid rgba(0, 0, 0, 0.25);
 }
-/* line 106, ../scss/app.scss */
+/* line 113, ../scss/app.scss */
 .options-list li {
   margin: 0;
   padding: 0.1rem;
   display: block;
 }
-/* line 112, ../scss/app.scss */
+/* line 119, ../scss/app.scss */
 .options-list label {
   display: block !important;
   margin: 0 !important;
@@ -9253,14 +9263,14 @@ th.hide-for-touch {
   font-weight: bold;
   font-size: 0.9rem;
 }
-/* line 119, ../scss/app.scss */
+/* line 126, ../scss/app.scss */
 .options-list input {
   margin: 0;
   padding: 0;
   display: none;
   border: 1px solid transparent;
 }
-/* line 125, ../scss/app.scss */
+/* line 132, ../scss/app.scss */
 .options-list input:checked + label {
   background: rgba(50, 100, 200, 0.33);
   border-color: rgba(0, 0, 0, 0.5);

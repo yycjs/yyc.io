@@ -67,6 +67,7 @@ function createMarker (map, feature) {
   var lat = feature.geometry.coordinates[1];
   var myLatlng = new google.maps.LatLng(lat, lng);
   var content = '<ul>';
+  var datasetTitle = feature.properties.dataset_title;
 
   $.each(feature.properties, function(key, value) {
     if(key === 'description') return;
@@ -80,18 +81,18 @@ function createMarker (map, feature) {
 
   var exists = false;
   for (var i in datasets) {
-    if (datasets[i] === feature.properties.dataset_title) {
+    if (datasets[i] === datasetTitle) {
       exists = true;
     }
   }
 
   if (!exists)
-    datasets[datasets.length] = feature.properties.dataset_title;
+    datasets[datasets.length] = datasetTitle;
 
   var marker = new google.maps.Marker({
     position: myLatlng,
-    title: feature.properties.dataset_title,
-    icon: icons[datasets.indexOf(feature.properties.dataset_title)%icons.length],
+    title: datasetTitle,
+    icon: icons[datasets.indexOf(datasetTitle)%icons.length],
     map: map
   });
 
