@@ -9,10 +9,5 @@ $(function() {
 	  }
 	});
 	$( "#range" ).html( $( "#slider" ).slider( "value" ) + 'm' );
-
-	$('.options-toggle').on('click',function(){
-		$('.options-selection').toggle();
-	});
-
 });
 

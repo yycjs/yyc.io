@@ -54,20 +54,20 @@ function drawFeatures (url) {
 
     for (var index in data.features) {
       var feature = data.features[index];
+      var title = feature.properties.ASSET_TYPE;
       createMarker(map, feature);
       $(parent).html(
         $(parent).html()
-        + '<li><label><input id="' 
-        + feature.properties.ASSET_TYPE 
-        + '" type="checkbox" checked>'
-        + feature.properties.ASSET_TYPE
-        + '</label>'
+        + '<li>'
+          + '<input id="' + title + '" type="checkbox" checked>'
+          + '<label for="' + title +'"">' + title + '</label>'
+        + '</li>'
       );
     }
   });
 }
 
-$('#options-list').on('change', 'input[type=checkbox]', function(event){
+$('body').on('change', '#options-list input[type=checkbox]', function(event){
   var marker = $(this).attr('id');
   toggleData(marker);
 });
@@ -125,6 +125,18 @@ function drawMap (userLat, userLong) {
     map: map,
     idPropertyName: 'userLoc'
   });
+
+  // Create a div to hold the control.
+  var controlDiv = document.createElement('div');
+  controlDiv.classList.add('map-controls-container');
+  controlDiv.id = 'map-controls-container';
+
+  var controlUI = document.createElement('ul');
+  controlUI.id = 'options-list';
+  controlUI.classList.add('options-list');
+  controlDiv.appendChild(controlUI);
+
+  map.controls[google.maps.ControlPosition.LEFT_TOP].push(controlDiv);
 };
 
 function initialize() {

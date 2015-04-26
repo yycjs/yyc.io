@@ -9241,3 +9241,39 @@ th.hide-for-touch {
   position: relative;
   left: 0;
 }
+
+/* line 111, ../scss/app.scss */
+.options-list {
+  display: block;
+  margin: 0.25rem;
+  padding: 0.25rem;
+  list-style: none;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.25);
+}
+/* line 118, ../scss/app.scss */
+.options-list li {
+  margin: 0;
+  padding: 0.1rem;
+  display: block;
+}
+/* line 124, ../scss/app.scss */
+.options-list label {
+  display: block !important;
+  margin: 0 !important;
+  padding: 0.2rem;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+/* line 131, ../scss/app.scss */
+.options-list input {
+  margin: 0;
+  padding: 0;
+  display: none;
+  border: 1px solid transparent;
+}
+/* line 137, ../scss/app.scss */
+.options-list input:checked + label {
+  background: rgba(50, 100, 200, 0.33);
+  border-color: rgba(0, 0, 0, 0.5);
+}
