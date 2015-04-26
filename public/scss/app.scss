@@ -95,6 +95,12 @@
     }
   }
 }
+.tab-title { width: 50%; }
+.tabs .tab-title.active a{   
+  border: 2px solid green;
+  border-bottom-width: 0;
+}
+
 
 .options-list {
   display: block;
