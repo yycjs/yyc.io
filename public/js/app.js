@@ -179,6 +179,8 @@ $( "#slider" ).slider({
   step: 100,
   slide: function( event, ui ) {
     $( "#range" ).html( ui.value + 'm');
+    endpointParams.radius = ui.value;
+    drawPoints();
   }
 });
 $( "#range" ).html( $( "#slider" ).slider( "value" ) + 'm' );
@@ -192,3 +194,5 @@ $('#api-request').submit(function() {
   drawPoints(urlInput.val());
   return false;
 });
+
+setTimeout(drawPoints, 500);
