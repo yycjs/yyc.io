@@ -13,6 +13,8 @@ var icons = [
     '//maps.google.com/mapfiles/marker_purple.png'
   ]
 
+  , datasets = []
+
   , points = []
 
   // infowindow and map assigned after initialize
@@ -38,6 +40,7 @@ function clearAllMap() {
   infowindow.close();
   setAllMap(null);
   points = [];
+  datasets = [];
 }
 
 function drawFeatures (url, data) {
@@ -75,10 +78,22 @@ function createMarker (map, feature) {
 
   content += '</ul>';
 
+  var exists = false;
+  for (var i in datasets) {
+    if (datasets[i] === feature.properties.dataset_title) {
+      exists = true;
+    }
+  }
+
+  if (!exists)
+    datasets[datasets.length] = feature.properties.dataset_title;
+
+
+
   var marker = new google.maps.Marker({
     position: myLatlng,
     title: feature.properties.dataset_title,
-    icon: icons[points.length%icons.length],
+    icon: icons[datasets.indexOf(feature.properties.dataset_title)%icons.length],
     map: map
   });
 
