@@ -35,41 +35,76 @@
       </aside>
 
       <main>
+
         <div class="row">
-          <div class="large-12 columns">
+          <div class="large-12 columns" style="margin-top: 1rem;">
+
             <div class="panel">
               <h3>Finially, an open-source api to build Calgary centric apps</h3>
             </div>
-            <div class='search-bar'>
-              <p>Range: <span id="range"></span></p>
-              <div id="slider"></div><hr/>
-              <div class='search-input'><p>yyc.io/</p>
-                <form id="api-request">
-                  <input id='api-request' placeholder="what you want?">
-                  <input type="submit">
-                </form>
+
+          </div>
+
+          <form id="api-request">
+            <div class="large-6 columns" style="margin-top: 1rem;">
+
+              <div class='search-bar'>
+                <div class="row collapse">
+
+                  <div class="small-2 columns">
+                    <span class="prefix">yyc.io/</span>
+                  </div>
+                  <div class="small-7 columns">
+                    <input type="text" id='api-request' placeholder="what you want?">
+                  </div>
+                  <div class="small-3 columns">
+                    <input type="submit" class="button postfix" value="Search">
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <div class="large-6 columns" style="margin-top: 1rem;">
+              <div class="panel" style="padding: 0.33rem 1rem;">
+                <div class="row">
+                  <div class="large-4 columns">
+                    Range: <span id="range"></span>
+                  </div>
+                  <div class="large-8 columns" style="padding-top: 0.33rem;">
+                    <div id="slider"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+
+          <div class="large-12 columns">
+            <div class="panel" style="background: white;">
+
+              <h3>Response:</h3>
+              
+              <ul class="tabs" data-tab role="tablist">
+                <li class="tab-title active" role="presentational" ><a href="#panel2-1" role="tab" tabindex="0" aria-selected="true" controls="panel2-1">JSON</a></li>
+                <li class="tab-title" role="presentational"><a href="#panel2-2" role="tab" tabindex="0"aria-selected="false" controls="panel2-2">Visual Example</a></li>
+              </ul>
+
+              <div class="tabs-content">
+
+                <section role="tabpanel" aria-hidden="false" class="content active" id="panel2-1">
+                  <div class='response-box'>
+                  <p>This is placeholder text... it looks ok, but not too pretty.</p>
+                  </div>
+                </section>
+
+                <section role="tabpanel" aria-hidden="true" class="content" id="panel2-2">
+                  <div id='map-canvas' class='map-canvas'></div>
+                </section>
+
               </div>
             </div>
           </div>
-          <h3>Response:</h3>
-          
-          <ul class="tabs" data-tab role="tablist">
-            <li class="tab-title active" role="presentational" ><a href="#panel2-1" role="tab" tabindex="0" aria-selected="true" controls="panel2-1">JSON</a></li>
-            <li class="tab-title" role="presentational"><a href="#panel2-2" role="tab" tabindex="0"aria-selected="false" controls="panel2-2">Visual Example</a></li>
-          </ul>
-
-          <div class="tabs-content">
-            <section role="tabpanel" aria-hidden="false" class="content active" id="panel2-1">
-              <div class='response-box'>
-              <p>This is placeholder text... it looks ok, but not too pretty.</p>
-              </div>
-            </section>
-            <section role="tabpanel" aria-hidden="true" class="content" id="panel2-2">
-            <div id='map-canvas' class='map-canvas'></div>
-            </section>
-          </div>
         </div>
-    </main>
+      </main>
 
       </div>
     </div>
