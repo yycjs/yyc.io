@@ -45,8 +45,19 @@ function drawFeatures (url, map) {
   clearAllMap();
 
   $.ajax(url).done(function(data) {
-    for (var index in data.features)
-      createMarker(map, data.features[index]);
+    for (var index in data.features) {
+      var feature = data.features[index];
+      createMarker(map, feature);
+
+      var parent = document.getElementById('options-list');
+      $(parent).html(
+        $(parent).html()
+        + '<li><input id="' 
+        + feature.properties.ASSET_TYPE 
+        + '" type="checkbox">'
+        + feature.properties.ASSET_TYPE
+      );
+    }
   });
 }
 
