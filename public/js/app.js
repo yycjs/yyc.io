@@ -1,11 +1,6 @@
 // Foundation JavaScript
 // Documentation can be found at: http://foundation.zurb.com/docs
   $(document).foundation({
-    tab: {
-      callback : function (tab) {
-        console.log(tab);
-      }
-    }
   });
 
 // Hardcode types just for now
@@ -54,10 +49,15 @@ function drawFeatures (url, map) {
         $(parent).html()
         + '<li><input id="' 
         + feature.properties.ASSET_TYPE 
-        + '" type="checkbox">'
+        + '" type="checkbox" checked>'
         + feature.properties.ASSET_TYPE
       );
     }
+   $('#options-list input[type=checkbox]').change(function(event){
+    var marker = $(this).attr('id');
+    console.log('checkbox changedjkldfjafls; !!!')
+    toggleData(marker);
+    });
   });
 }
 
