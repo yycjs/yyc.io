@@ -53,6 +53,7 @@ function drawFeatures (url, data) {
 
     var parent = document.getElementById('options-list');
     $(parent).html('');
+    $('#json-response').jsonViewer(data);
 
     $.each(data.features, function(i, feature) {
       createMarker(map, feature);
@@ -169,6 +170,17 @@ function loadScript() {
 }
 
 window.onload = loadScript;
+
+$( "#slider" ).slider({
+  value:1000,
+  min: 100,
+  max: 2000,
+  step: 100,
+  slide: function( event, ui ) {
+    $( "#range" ).html( ui.value + 'm');
+  }
+});
+$( "#range" ).html( $( "#slider" ).slider( "value" ) + 'm' );
 
 $('body').on('change', '#options-list input[type=checkbox]', function(event){
   var marker = $(this).attr('id');
