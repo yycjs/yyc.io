@@ -9230,13 +9230,13 @@ th.hide-for-touch {
   text-align: center;
 }
 
-/* line 96, ../scss/app.scss */
+/* line 97, ../scss/app.scss */
 .tabs-content > .content {
   display: block;
   position: absolute;
   left: -9999px;
 }
-/* line 100, ../scss/app.scss */
+/* line 101, ../scss/app.scss */
 .tabs-content > .content.active {
   position: relative;
   left: 0;
