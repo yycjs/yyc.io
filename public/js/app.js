@@ -51,6 +51,7 @@ function drawFeatures (url, data) {
 
     var parent = document.getElementById('options-list');
     $(parent).html('');
+    $('#json-response').jsonViewer(data);
 
     $.each(data.features, function(i, feature) {
       createMarker(map, feature);
