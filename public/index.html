@@ -38,16 +38,8 @@
       <main>
 
         <div class="row">
-          <div class="large-12 columns" style="margin-top: 1rem;">
-
-            <div class="panel">
-              <h3>Finially, an open-source api to build Calgary centric apps</h3>
-            </div>
-
-          </div>
-
           <form id="api-request">
-            <div class="large-6 columns" style="margin-top: 1rem;">
+            <div class="large-12 columns" style="margin-top: 1rem;">
 
               <div class='search-bar'>
                 <div class="row collapse">
@@ -65,19 +57,32 @@
                 </div>
               </div>
             </div>
-            <div class="large-6 columns" style="margin-top: 1rem;">
+          </div>
+          <div class="row">
+            <div class="large-4 columns" style="margin-top: 1rem;">
               <div class="panel" style="padding: 0.33rem 1rem;">
                 <div class="row">
-                  <div class="large-4 columns">
+                  <div class="large-6 columns">
                     Range: <span id="range"></span>
                   </div>
-                  <div class="large-8 columns" style="padding-top: 0.33rem;">
+                  <div class="large-6 columns" style="padding-top: 0.33rem;">
                     <div id="slider"></div>
                   </div>
                 </div>
               </div>
             </div>
           </form>
+          <div class="large-6 columns" style="margin-top: 1rem;">
+              <div class="panel" style="padding: 0.33rem 1rem;">
+                  <p><strong>My Latitude: </strong><span id='#loc-lat'>dummy-text</span> <strong> My Longitude: </strong><span id='#loc-long'>dummy-text</span></p>
+                  </div>
+                </div>
+          <div class="large-2 columns" style="margin-top: 1rem;">
+            <input id="my-location" type="submit" class="button info postfix" value="Use my Location">
+          </div>
+              </div>
+            </div>
+        </div>
 
           <div class="large-12 columns">
             <div class="panel" style="background: white;">
