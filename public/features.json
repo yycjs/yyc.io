@@ -1,0 +1,7 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[-113.928556630573,51.0724051636471,0]},"properties":{"title":"Marker","marker-symbol":"monument","name":"kml_1","description":"Why isn't this a really cool point?","ASSET_CD":"MOR298","STEWARD":"CALGARY PARKS","MAINTAINED":"CALGARY PARKS","LIFE_CYCLE":"ACTIVE","MGMT_NUM":"160298","ASSET_TYPE":"HB1 - HIDE A BAG SINGLE, BEAR BIN","SERIAL_NUM":"PF03-7335","BASE":"YES"},"id":"kml_1", "attributes": [{"postal_code":"12345"}]},
+  {"type":"Feature","geometry":{"type":"Point","coordinates":[-114.114443736646,51.0213265531526,0]},"properties":{"name":"kml_1","description":"[CDATA[<center","ASSET_CD":"ALT632","LIFE_CYCLE":"ACTIVE","MAINTAINED":"CALGARY PARKS","STYLE":"NOT APPLICABLE","ASSET_TYPE":"ELECTRIC PLUG IN","STEWARD":"CALGARY PARKS"},"id":"kml_1"}
+  ]
+}
