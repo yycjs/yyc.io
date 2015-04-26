@@ -13,6 +13,8 @@ var icons = [
     '//maps.google.com/mapfiles/marker_purple.png'
   ]
 
+  , datasets = []
+
   , points = []
 
   // infowindow and map assigned after initialize
@@ -51,6 +53,7 @@ function drawFeatures (url, data) {
 
     var parent = document.getElementById('options-list');
     $(parent).html('');
+    $('#json-response').jsonViewer(data);
 
     $.each(data.features, function(i, feature) {
       createMarker(map, feature);
@@ -64,6 +67,7 @@ function createMarker (map, feature) {
   var lat = feature.geometry.coordinates[1];
   var myLatlng = new google.maps.LatLng(lat, lng);
   var content = '<ul>';
+  var datasetTitle = feature.properties.dataset_title;
 
   $.each(feature.properties, function(key, value) {
     if(key === 'description') return;
@@ -75,10 +79,20 @@ function createMarker (map, feature) {
 
   content += '</ul>';
 
+  var exists = false;
+  for (var i in datasets) {
+    if (datasets[i] === datasetTitle) {
+      exists = true;
+    }
+  }
+
+  if (!exists)
+    datasets[datasets.length] = datasetTitle;
+
   var marker = new google.maps.Marker({
     position: myLatlng,
-    title: feature.properties.dataset_title,
-    icon: icons[points.length%icons.length],
+    title: datasetTitle,
+    icon: icons[datasets.indexOf(datasetTitle)%icons.length],
     map: map
   });
 
@@ -157,6 +171,17 @@ function loadScript() {
 }
 
 window.onload = loadScript;
+
+$( "#slider" ).slider({
+  value:1000,
+  min: 100,
+  max: 2000,
+  step: 100,
+  slide: function( event, ui ) {
+    $( "#range" ).html( ui.value + 'm');
+  }
+});
+$( "#range" ).html( $( "#slider" ).slider( "value" ) + 'm' );
 
 $('body').on('change', '#options-list input[type=checkbox]', function(event){
   var marker = $(this).attr('id');
