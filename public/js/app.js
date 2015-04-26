@@ -3,6 +3,7 @@
 $(document).foundation();
 
 var base = '/points';
+var geoloc = {};
 var endpointParams = {};
 var urlInput = $('#api-request [name="request"]');
 // Hardcode types just for now
@@ -155,7 +156,10 @@ function initialize() {
 
   if ("geolocation" in navigator) {
     navigator.geolocation.getCurrentPosition(function(position) {
+      geoloc = position.coords;
       drawMap(position.coords.latitude, position.coords.longitude);
+      $('#loc-lat').html(geoloc.latitude);
+      $('#loc-long').html(geoloc.longitude);
     });
   } else {
     drawMap(51.0486, -114.0708); // centre of Calgary
@@ -193,6 +197,11 @@ $('body').on('change', '#options-list input[type=checkbox]', function(event){
 $('#api-request').submit(function() {
   drawPoints(urlInput.val());
   return false;
+});
+
+$('#my-location').click(function() {
+  endpointParams.location = geoloc.latitude + ',' + geoloc.longitude;
+  drawPoints();
 });
 
 setTimeout(drawPoints, 500);
