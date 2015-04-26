@@ -10,7 +10,9 @@ var icons = [
     '//maps.google.com/mapfiles/marker_yellow.png',
     '//maps.google.com/mapfiles/marker_green.png',
     '//maps.google.com/mapfiles/marker_orange.png',
-    '//maps.google.com/mapfiles/marker_purple.png'
+    '//maps.google.com/mapfiles/marker_purple.png',
+    '//maps.google.com/mapfiles/ms/micons/ltblue-dot.png',
+    '//maps.google.com/mapfiles/ms/micons/pink-dot.png'
   ]
 
   , datasets = []
