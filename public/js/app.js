@@ -2,13 +2,11 @@
 // Documentation can be found at: http://foundation.zurb.com/docs
 $(document).foundation();
 
+var base = '/points';
+var endpointParams = {};
+var urlInput = $('#api-request [name="request"]');
 // Hardcode types just for now
-var types = [
-    'ELECTRIC PLUG IN',
-    'HB1 - HIDE A BAG SINGLE, BEAR BIN'
-  ]
-
-  , icons = [
+var icons = [
     '//maps.google.com/mapfiles/marker_yellow.png',
     '//maps.google.com/mapfiles/marker_green.png',
     '//maps.google.com/mapfiles/marker_orange.png',
@@ -21,6 +19,15 @@ var types = [
   , infowindow
   , map;
 
+function drawPoints(url) {
+  if(typeof url === 'string') {
+    endpointParams = {};
+  } else {
+    urlInput.val(base + '?' + $.param(endpointParams));
+  }
+  drawFeatures(urlInput.val());
+}
+
 function setAllMap(map) {
   for (var i = 0; i < points.length; i++) {
     points[i].marker.setMap(map);
@@ -28,6 +35,7 @@ function setAllMap(map) {
 }
 
 function clearAllMap() {
+  infowindow.close();
   setAllMap(null);
   points = [];
 }
@@ -79,8 +87,17 @@ function createMarker (map, feature) {
     properties: feature.properties
   };
 
+  content = $(content);
+
+  content.find('a.refine').on('click', function() {
+    var name = $(this).data('name');
+    var value = $(this).data('value');
+    endpointParams[name] = value;
+    drawPoints();
+  });
+
   google.maps.event.addListener(marker, 'click', function(event) {
-    infowindow.setContent(content);
+    infowindow.setContent(content[0]);
     infowindow.setPosition(event.latLng);
     infowindow.setOptions({pixelOffset: new google.maps.Size(0,-34)});
     infowindow.open(map);
@@ -144,25 +161,6 @@ window.onload = loadScript;
 $('body').on('change', '#options-list input[type=checkbox]', function(event){
   var marker = $(this).attr('id');
   toggleData(marker);
-});
-
-var base = '/points';
-var endpointParams = {};
-var urlInput = $('#api-request [name="request"]');
-
-function drawPoints(url) {
-  if(typeof url === 'string') {
-    endpointParams = {};
-    drawFeatures(url);
-  } else {
-    urlInput.val(base + '?' + $.param(endpointParams));
-  }
-}
-
-$('body').on('click', 'a.refine').click(function() {
-  // endpointParams[$(this).data('name')] = $(this).data('value');
-  // drawPoints();
-  console.log($(this))
 });
 
 $('#api-request').submit(function() {
