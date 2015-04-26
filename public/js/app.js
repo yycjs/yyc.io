@@ -40,7 +40,6 @@ function clearAllMap() {
   infowindow.close();
   setAllMap(null);
   points = [];
-  datasets = [];
 }
 
 function drawFeatures (url, data) {
@@ -87,8 +86,6 @@ function createMarker (map, feature) {
 
   if (!exists)
     datasets[datasets.length] = feature.properties.dataset_title;
-
-
 
   var marker = new google.maps.Marker({
     position: myLatlng,
