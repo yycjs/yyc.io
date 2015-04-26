@@ -2,13 +2,11 @@
 // Documentation can be found at: http://foundation.zurb.com/docs
 $(document).foundation();
 
+var base = '/points';
+var endpointParams = {};
+var urlInput = $('#api-request [name="request"]');
 // Hardcode types just for now
-var types = [
-    'ELECTRIC PLUG IN',
-    'HB1 - HIDE A BAG SINGLE, BEAR BIN'
-  ]
-
-  , icons = [
+var icons = [
     '//maps.google.com/mapfiles/marker_yellow.png',
     '//maps.google.com/mapfiles/marker_green.png',
     '//maps.google.com/mapfiles/marker_orange.png',
@@ -21,15 +19,13 @@ var types = [
   , infowindow
   , map;
 
-function toggleData(type) {
-
-  for (index in points) {
-    var point = points[index];
-
-    if (point.properties.ASSET_TYPE === type) {
-      point.marker.setMap(point.marker.getMap() ? null : map);
-    }
+function drawPoints(url) {
+  if(typeof url === 'string') {
+    endpointParams = {};
+  } else {
+    urlInput.val(base + '?' + $.param(endpointParams));
   }
+  drawFeatures(urlInput.val());
 }
 
 function setAllMap(map) {
@@ -39,58 +35,51 @@ function setAllMap(map) {
 }
 
 function clearAllMap() {
+  infowindow.close();
   setAllMap(null);
   points = [];
 }
 
-function drawFeatures (url) {
+function drawFeatures (url, data) {
 
   clearAllMap();
 
-  $.ajax(url).done(function(data) {
+  $.ajax({
+    url: url,
+    data: data || {}
+  }).done(function(data) {
 
     var parent = document.getElementById('options-list');
     $(parent).html('');
 
-    for (var index in data.features) {
-      var feature = data.features[index];
-      var title = feature.properties.ASSET_TYPE;
+    $.each(data.features, function(i, feature) {
       createMarker(map, feature);
-      $(parent).html(
-        $(parent).html()
-        + '<li>'
-          + '<input id="' + title + '" type="checkbox" checked>'
-          + '<label for="' + title +'"">' + title + '</label>'
-        + '</li>'
-      );
-    }
+    });
   });
 }
-
-$('body').on('change', '#options-list input[type=checkbox]', function(event){
-  var marker = $(this).attr('id');
-  toggleData(marker);
-});
-
-$('#api-request').submit(function() {
-  console.log("Submitted");
-  drawFeatures('/features.json');
-  return false;
-});
 
 function createMarker (map, feature) {
 
   var lng = feature.geometry.coordinates[0];
   var lat = feature.geometry.coordinates[1];
   var myLatlng = new google.maps.LatLng(lat, lng);
+  var content = '<ul>';
+
+  $.each(feature.properties, function(key, value) {
+    if(key === 'description') return;
+
+    content += '<li><strong>' + key + '</strong>: ' +
+      '<a class="refine" href="#" data-name="' + key +
+      '" data-value="' + value + '">' + value + '</a></li>';
+  });
+
+  content += '</ul>';
 
   var marker = new google.maps.Marker({
     position: myLatlng,
-    title: feature.properties.ASSET_TYPE,
-    // dataSet: feature.properties.
+    title: feature.properties.dataset_title,
     icon: icons[points.length%icons.length],
-    map: map,
-    idPropertyName: feature.properties.ASSET_CD
+    map: map
   });
 
   points[points.length] = {
@@ -98,10 +87,17 @@ function createMarker (map, feature) {
     properties: feature.properties
   };
 
+  content = $(content);
+
+  content.find('a.refine').on('click', function() {
+    var name = $(this).data('name');
+    var value = $(this).data('value');
+    endpointParams[name] = value;
+    drawPoints();
+  });
+
   google.maps.event.addListener(marker, 'click', function(event) {
-    var content = marker.title;
-    // var content = marker.dataSet + "<br>" + marker.title
-    infowindow.setContent(content);
+    infowindow.setContent(content[0]);
     infowindow.setPosition(event.latLng);
     infowindow.setOptions({pixelOffset: new google.maps.Size(0,-34)});
     infowindow.open(map);
@@ -136,7 +132,7 @@ function drawMap (userLat, userLong) {
   controlUI.classList.add('options-list');
   controlDiv.appendChild(controlUI);
 
-  map.controls[google.maps.ControlPosition.LEFT_TOP].push(controlDiv);
+  map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(controlDiv);
 };
 
 function initialize() {
@@ -161,3 +157,13 @@ function loadScript() {
 }
 
 window.onload = loadScript;
+
+$('body').on('change', '#options-list input[type=checkbox]', function(event){
+  var marker = $(this).attr('id');
+  toggleData(marker);
+});
+
+$('#api-request').submit(function() {
+  drawPoints(urlInput.val());
+  return false;
+});
