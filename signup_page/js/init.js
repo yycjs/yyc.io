@@ -15,20 +15,19 @@ $(function () {
 
 	$.backstretch([
 		"signup_page/img/background/1.jpg",
-		"signup_page/img/background/2.jpg",
-		"signup_page/img/background/3.jpg"
+		"signup_page/img/background/2.jpg"
 	]);
-	
+
 	/* ---------------------------------------------------------
 	 * WOW
 	 */
-	
+
 	new WOW().init();
-	
+
 	/* ---------------------------------------------------------
 	 * Scroll arrow
 	 */
-	
+
 	$("#scroll").click(function () {
 	 	if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
 	 		var target = $(this.hash);
@@ -53,7 +52,7 @@ $(function () {
 		minutes: "minutes",
 		seconds: "seconds"
 	};
-	
+
 	// year/month/day
 	$('#countdown').countdown('2015/6/12', function (event) {
 		$(this).html(event.strftime(
@@ -65,5 +64,3 @@ $(function () {
 		));
 	});
 });
-
-
