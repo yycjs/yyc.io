@@ -1,0 +1,143 @@
+@import "settings";
+@import "foundation";
+
+// Or selectively include components
+// @import
+//   "foundation/components/accordion",
+//   "foundation/components/alert-boxes",
+//   "foundation/components/block-grid",
+//   "foundation/components/breadcrumbs",
+//   "foundation/components/button-groups",
+//   "foundation/components/buttons",
+//   "foundation/components/clearing",
+//   "foundation/components/dropdown",
+//   "foundation/components/dropdown-buttons",
+//   "foundation/components/flex-video",
+//   "foundation/components/forms",
+//   "foundation/components/grid",
+//   "foundation/components/inline-lists",
+//   "foundation/components/joyride",
+//   "foundation/components/keystrokes",
+//   "foundation/components/labels",
+//   "foundation/components/magellan",
+//   "foundation/components/orbit",
+//   "foundation/components/pagination",
+//   "foundation/components/panels",
+//   "foundation/components/pricing-tables",
+//   "foundation/components/progress-bars",
+//   "foundation/components/reveal",
+//   "foundation/components/side-nav",
+//   "foundation/components/split-buttons",
+//   "foundation/components/sub-nav",
+//   "foundation/components/switches",
+//   "foundation/components/tables",
+//   "foundation/components/tabs",
+//   "foundation/components/thumbs",
+//   "foundation/components/tooltips",
+//   "foundation/components/top-bar",
+//   "foundation/components/type",
+//   "foundation/components/offcanvas",
+//   "foundation/components/visibility";
+
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+.map-canvas {
+  width: 100%;
+  height: 20rem;
+  max-height: 90vh;
+  .gm-style img {max-width: none; }
+  .gm-style label { width: auto; display: inline;}
+}
+
+.search-bar {
+  max-width: 100%;
+}
+
+.response-box{
+  border: 1px solid #555;
+  border-radius: 5px;
+  width: 80%;
+  height: auto;
+  margin: auto;
+  display: block;
+  background-color: #F4F4F4;
+  padding: 10px;
+}
+.options-box{
+  h3{color:#fff;}
+  float:right;
+  background: #000;
+  color: #fff;
+  width: 300px;
+  font-size: 1.5em;
+  right: 0px;
+  .options-selection{
+    display: none;
+    z-index: 999;
+    position: absolute;
+    background-color: #000;
+    width: 300px;
+  }
+  .options-toggle{
+    background-color: orange;
+    width: 300px;
+    text-align: center;
+  }
+}
+
+// This allows google maps to load properly while hidden.
+.tabs-content {
+  > .content {
+    display: block;
+    position: absolute;
+    left: -9999px;
+    &.active {
+      position: relative;
+      left: 0;
+    }
+  }
+}
+.tab-title { width: 50%; }
+.tabs .tab-title.active a{   
+  border: 2px solid green;
+  border-bottom-width: 0;
+}
+
+
+.options-list {
+  display: block;
+  margin: 0.25rem;
+  padding: 0.25rem;
+  list-style: none;
+  background: rgba(255,255,255, 0.8);
+  border: 1px solid rgba(0,0,0,0.25);
+  li {
+    margin: 0;
+    padding: 0.1rem;
+    display: block;
+  }
+
+  label {
+    display: block !important;
+    margin: 0 !important;
+    padding:  0.2rem;
+    font-weight: bold;
+    font-size: 0.9rem;
+  }
+  input {
+    margin: 0;
+    padding: 0;
+    display: none;
+    border: 1px solid transparent;
+    
+     &:checked + label {
+      background: rgba(50,100,200,0.33);
+      border-color: rgba(0,0,0,0.5);
+    }
+  }
+}
