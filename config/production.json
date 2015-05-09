@@ -1,5 +1,5 @@
 {
   "host": "yyc.io",
   "port": "PORT",
-  "mongodb": "mongodb://yycio:gcTo9C6ehF@proximus.modulusmongo.net:27017/o6sewAno"
+  "mongodb": "MONGODB"
 }
